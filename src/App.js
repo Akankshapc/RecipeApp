@@ -1,25 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import Diffwork from './Diffwork'
+import Array0Food from './Array'
+import CatMenu from './CatMenu'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+const catvalues=[...new Set(Array0Food.map((valElam)=>valElam.catogary))]
+
+const App = () => {
+let[item,setItem]=useState(Array0Food);
+let [newItem,setNweItem]=useState(catvalues);
+
+
+const filterItem=(Cetvalue)=>{
+const connected=Array0Food.filter((cur,inx)=>{
+    return cur.catogary===Cetvalue
+  })
+setItem(connected);}
+
+return (<>    
+    <CatMenu 
+    filterItem={filterItem}
+    newItem={newItem}  
+    />
+  
+<div className='container'>    {
+      item.map((current,index)=>{
+      return(<>
+      <Diffwork
+      id={index}
+      image={current.image}
+      name={current.name}
+      catogary={current.catogary}
+      price={current.price}
+      Description={current.Description}/>
+      </>)
+      })
+      }
+</div>
+    </>
+
+  )
 }
 
-export default App;
+export default App
